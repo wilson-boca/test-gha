@@ -27,7 +27,7 @@ jobs:
       - name: checkout mode
         uses: actions/checkout@v3
       - name: Login to github container registry
-        run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+        run: echo ${{ secrets.TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
       - name: Build the Docker Image
         run: docker build -t ghcr.io/wilsonboca/docker-testgha:"$(cat deploy-settings.json | jq -r .version)" .
       - name: Push the Docker Image
