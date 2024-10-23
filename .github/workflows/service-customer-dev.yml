@@ -1,0 +1,22 @@
+name: customer - Development
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'app/**'
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy-eks.yml
+    with:
+      project: testcd
+      env-name: development
+      dockerfile: ./Dockerfile
+      needs-core: true
+    secrets:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID_DEVELOPMENT }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY_DEVELOPMENT }}
+      KUBE_CONFIG: ${{ secrets.KUBE_CONFIG_DEVELOPMENT }}
