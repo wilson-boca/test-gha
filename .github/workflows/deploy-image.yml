@@ -8,10 +8,13 @@
 # Você também pode fazer referência a uma marca ou branch, mas a ação pode ser alterada sem aviso.
 
 name: Publish Docker image
-
 on:
-  release:
-    types: [published]
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+    paths:
+      - 'app/**'
 
 jobs:
   push_to_registry:
