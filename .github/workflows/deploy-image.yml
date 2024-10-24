@@ -28,9 +28,7 @@ jobs:
         id: version
         run: |
           VERSION=$(cat version.txt)
-          echo "VERSION=$VERSION" >> $GITHUB_ENV    
-        outputs:
-          VERSION: ${{ steps.version.outputs.VERSION }}                
+          echo "VERSION=$VERSION" >> $GITHUB_ENV      
       - name: Extract repository name
         id: repo-name
         run: |
@@ -43,4 +41,4 @@ jobs:
           push: true
           tags: |
             ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ steps.version.outputs.VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.VERSION }}
