@@ -28,11 +28,8 @@ jobs:
         run: |
           VERSION=$(cat version.txt)
           echo "VERSION=$VERSION" >> $GITHUB_ENV      
-      - name: Extract repository name
-        id: repo-name
-        run: |
-          REPO_NAME=${GITHUB_REPOSITORY#*/}
-          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+      - name: Get repository name
+        run: echo "::set-output name=repo_name::$(basename $GITHUB_REPOSITORY)"
       - name: Get current branch name
         id: get-branch
         run: echo "::set-output name=branch_name::$(git rev-parse --abbrev-ref HEAD)"          
@@ -42,5 +39,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ steps.repo-name.outputs.REPO_NAME }}:latest-${{ steps.get-branch.outputs.branch_name }}
-            ${{ secrets.DOCKER_USERNAME }}/${{ steps.repo-name.outputs.REPO_NAME }}:${{ env.VERSION }}-${{ steps.get-branch.outputs.branch_name }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ steps.get-branch.outputs.repo_name }}:latest-${{ steps.get-branch.outputs.branch_name }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.VERSION }}-${{ steps.get-branch.outputs.branch_name }}
