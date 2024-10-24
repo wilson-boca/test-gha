@@ -9,7 +9,6 @@ on:
       - 'app/**'
 
 env:
-  REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
@@ -34,18 +33,11 @@ jobs:
         run: |
           VERSION=$(cat version.txt)
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-
-      - name: Extract repository name
-        id: repo-name
-        run: |
-          REPO_NAME=${GITHUB_REPOSITORY#*/}
-          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
-
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
