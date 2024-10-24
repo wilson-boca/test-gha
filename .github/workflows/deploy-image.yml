@@ -34,11 +34,14 @@ jobs:
         run: |
           REPO_NAME=${GITHUB_REPOSITORY#*/}
           echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+      - name: Get current branch name
+        id: get-branch
+        run: echo "::set-output name=branch_name::$(git rev-parse --abbrev-ref HEAD)"          
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:latest-${{ steps.get-branch.outputs.branch_name }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.VERSION }}-${{ steps.get-branch.outputs.branch_name }}
