@@ -28,11 +28,11 @@ jobs:
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PAT }}
       - name: Create and push tags
         uses: mathieudutour/github-tag-action@v6.2
         with:
-          github_token: ${{ secrets.PAT }}
+          github_token: ${{ secrets.TOKEN }}
           tag: ${{ steps.version.outputs.version }}
           latest: true
 
