@@ -47,5 +47,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:${{ env.VERSION }}
-            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:latest
+            wilsonboca/${{ github.repository }}:${{ env.VERSION }}
+            wilsonboca/${{ github.repository }}:latest
