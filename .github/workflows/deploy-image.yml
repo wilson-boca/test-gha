@@ -47,5 +47,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:${{ env.VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:latest
+            ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.VERSION }}
