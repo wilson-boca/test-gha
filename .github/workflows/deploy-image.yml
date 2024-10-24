@@ -8,9 +8,6 @@ on:
     paths:
       - 'app/**'
 
-env:
-  IMAGE_NAME: ${{ github.repository }}
-
 jobs:
   build-and-push-image:
     runs-on: ubuntu-latest
@@ -39,5 +36,5 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:latest
-            ${{ secrets.DOCKER_USERNAME }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}
+            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:latest
+            ${{ secrets.DOCKER_USERNAME }}/${{ github.repository }}:${{ env.VERSION }}
