@@ -1,4 +1,4 @@
-# Just to run CD 1.0.1
+# Just to run CD 1.0.6
 from fastapi import FastAPI
  
 
